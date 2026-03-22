@@ -35,7 +35,7 @@ function App() {
     <>
       <div className={css.app}>
         <header className={css.toolbar}>
-          <SearchBox value={search} onSubmit={handleSearch} />
+          <SearchBox value={search} onChange={handleSearch} />
           {isLoading && <Loader />}
           {isError && <ErrorMessage />}
           {totalPages > 1 && (
