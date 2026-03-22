@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import type { Note, NoteTag } from "../types/note";
+import type { Note } from "../types/note";
+import type { CreateNoteParam } from "../types/note";
 
 interface NotesParam {
   notes: Note[];
@@ -26,12 +27,6 @@ export async function fetchNotes(
   };
   const response = await axios.get<NotesParam>(url, optionsNote);
   return response.data;
-}
-
-interface CreateNoteParam {
-  title: string;
-  content: string;
-  tag: NoteTag;
 }
 
 export async function createNote(newNote: CreateNoteParam): Promise<Note> {

@@ -8,3 +8,9 @@ export interface Note {
 }
 
 export type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+
+export interface CreateNoteParam {
+  title: string;
+  content: string;
+  tag: NoteTag;
+}

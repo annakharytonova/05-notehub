@@ -4,13 +4,13 @@ import * as pkg from "react-paginate";
 // @ts-expect-error - react-paginate has incorrect type definitions
 const ReactPaginate = pkg.default.default;
 
-interface PaginationParam {
+interface PaginationProps {
   page: number;
   totalPages: number;
   handlePageChange: (selectedItem: { selected: number }) => void;
 }
 
-function Pagination({ page, totalPages, handlePageChange }: PaginationParam) {
+function Pagination({ page, totalPages, handlePageChange }: PaginationProps) {
   return (
     <ReactPaginate
       pageCount={totalPages}

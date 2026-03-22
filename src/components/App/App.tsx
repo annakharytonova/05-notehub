@@ -10,15 +10,17 @@ import Modal from "../Modal/Modal";
 import NoteForm from "../NoteForm/NoteForm";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
+import { useDebounce } from "use-debounce";
 
 function App() {
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [debouncedSearch] = useDebounce(search, 500);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["notes", search, page],
-    queryFn: () => fetchNotes(search, page),
+    queryKey: ["notes", debouncedSearch, page],
+    queryFn: () => fetchNotes(debouncedSearch, page),
     placeholderData: keepPreviousData,
   });
 

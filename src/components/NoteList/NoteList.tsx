@@ -4,11 +4,11 @@ import { deleteNote } from "../../services/noteService";
 
 import type { Note } from "../../types/note";
 
-interface NoteListParam {
+interface NoteListProps {
   notes: Note[];
 }
 
-function NoteList({ notes }: NoteListParam) {
+function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

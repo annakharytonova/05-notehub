@@ -5,13 +5,13 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "../../services/noteService";
 
-interface NoteFormParams {
-  title: string;
-  content: string;
-  tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
+import type { CreateNoteParam } from "../../types/note";
+
+interface NoteFormProps {
+  onClose: () => void;
 }
 
-const INITIAL_VALUES: NoteFormParams = {
+const INITIAL_VALUES: CreateNoteParam = {
   title: "",
   content: "",
   tag: "Todo",
@@ -22,13 +22,14 @@ const validationSchema = Yup.object({
   content: Yup.string().max(500),
   tag: Yup.string().oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"]),
 });
-function NoteForm({ onClose }: { onClose: () => void }) {
+
+function NoteForm({ onClose }: NoteFormProps) {
   const fieldId = useId();
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (values: NoteFormParams) => createNote(values),
+    mutationFn: (values: CreateNoteParam) => createNote(values),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
@@ -36,7 +37,7 @@ function NoteForm({ onClose }: { onClose: () => void }) {
     },
   });
 
-  const handleSubmit = (values: NoteFormParams) => {
+  const handleSubmit = (values: CreateNoteParam) => {
     mutation.mutate(values);
   };
 
